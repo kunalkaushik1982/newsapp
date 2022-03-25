@@ -276,18 +276,17 @@ export class News extends Component {
   render() {
     return (
         <div className="container my-3">
-          <h2>NewsApp - Top Headlines</h2>
+          <h2>NewsApp - Top Headlines</h2>          
           <div className="row">
-              <div className="col-md-3">
-                <NewsItem title="My Title" description="My Description" 
-                imageurl="https://www.journaldugeek.com/content/uploads/2022/03/iphone-se-2022-chutes.jpg" newsUrl="TODO"/>                
-              </div>
-              <div className="col-md-3">
-                <NewsItem title="My Title" description="My Description"/>                
-              </div>
-              <div className="col-md-3">
-                <NewsItem title="My Title" description="My Description"/>                
-              </div>
+          {
+              this.state.articles.map((element)=>
+              {
+                  return <div className="col-md-4" key={element.url}>
+                      <NewsItem title={element.title.slice(0,15)} description={element.description.slice(0,30)} 
+                      imageurl={element.urlToImage} newsUrl={element.url}/>                
+                  </div>
+              })
+          }
           </div>          
         </div>
     )
