@@ -16,15 +16,21 @@ export class News extends Component {
       category:PropTypes.string      
     }
 
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     console.log("Hello I am News Constructor")
     this.state={
         articles:[],
         loading:false,
         page:1
     }
+    document.title=`${this.capatlizeFirstletter(this.props.category)} - NewsApp`
   }
+
+  capatlizeFirstletter = (string)=> {
+    return string.charAt(0).toUpperCase() +string.slice(1)
+  }
+
   async updateNews(){
     const url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d25c7176f766428eb050cfb4a0a77ebc&page=${this.state.page}&pageSize=${this.props.pageSize}`
     this.setState({loading:true})
@@ -53,7 +59,7 @@ export class News extends Component {
   render() {
     return (
         <div className="container my-3">
-          <h1 className="text-center" style={{margin: '35px 0px'}}>NewsApp - Top Headlines</h1>
+          <h1 className="text-center" style={{margin: '35px 0px'}}>NewsApp - Top {this.capatlizeFirstletter(this.props.category)} Headlines</h1>
           {this.state.loading && <Spinner/>}       
           {/* http://ajaxloadingimages.net/ */}
           <div className="row">
